@@ -1,0 +1,31 @@
+{
+  "name": "YouTube Music Extension",
+  "version": "1.0",
+  "description": "This extension grabs the current playing song from YouTube Music tab and logs it in the developer console.",
+  "manifest_version": 3,
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png"
+  },
+  "permissions": [ "activeTab", "storage", "scripting", "tabs" ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [ "https://music.youtube.com/*" ],
+      "js": [ "lib/mqttws31.js", "content.js" ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "lib/mqttws31.js"
+      ],
+      "content_security_policy": "script-src 'self' 'unsafe-eval' 'unsafe-inline' 'self'",
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
